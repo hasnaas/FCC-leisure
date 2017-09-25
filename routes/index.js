@@ -13,18 +13,20 @@ router.use(passport.session());
 router.get('/auth/twitter',passport.authenticate('twitter'));
 router.get('/auth/twitter/callback', passport.authenticate('twitter', { display:'popup',failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/');
+    res.render('welcome',{user:req.user});
 });
-router.get('/logout',function(req,res){
+/*router.get('/logout',function(req,res){
 req.logout();
 res.redirect('/polls');
 });
-
+*/
 
 /* GET home page. */
 router.get('/',app_controller.get_started);
+/* Display search results */
 router.post('/',app_controller.get_liste);
-
+/*update the going to count per restaurant */
+router.post('/updatecount', app_controller.set_count);
 
 module.exports=router;
 

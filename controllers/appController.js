@@ -2,21 +2,68 @@ var User=require('../models/user');
 var request=require('request');
 var Promise=require("promise");
 
+
+var p=[];
 //getting started, serving the home page with the search form
 exports.get_started=function(req,res){
-    res.render('welcome');
+    res.render('welcome',{user:req.user});
 }
 
+exports.set_count=function(req,res){
+  var business_id=req.body.bi;
+  var user=req.user.twitterId;
+  User.findOne({twitterId:user}).exec(function(err,response){
+    if(err) throw err;
+    if(response.reservationDate<new Date().getDate()){
+      response.reservationDate=new Date().getDate();
+      response.goingTo=[business_id];
+      }
+    else{
+      response.goingTo.push(business_id);
+      }
+  
+    p.forEach(function(pp){
+            if(response.goingTo.indexOf(pp.id)>-1)
+            pp.nbgoing++;
+    });
+    response.save(function(err){
+      if(err) throw err;
+    })
+    res.render('welcome',{liste:p,user:req.user});  
+  });
+  
+}
 exports.get_liste=function(req,res){
     
     //Get your user data, and print the data in JSON:
 getBusinessData(req.body.location)
   .then(function(data) {
     //console.log("final data "+JSON.stringify(data));
-    res.render('welcome',{liste:data.data});
+    p=data.data;
+    var count=0;
+    User.find({}).exec(function(err,users){
+      if(err) throw err;
+          p.forEach(function(pp){
+            count=0;
+            for(var i=0;i<users.length;i++){
+            if(new Date().getDate()>users[i].reservationDate){
+              users[i].goingTo=[];
+            }
+            else{
+              if(users[i].goingTo.indexOf(pp.id)>-1){
+               count++;
+              }
+      
+              }
+            }
+            pp.nbgoing=count;
+          });
+      
+    res.render('welcome',{liste:p,user:req.user});  
+    });
   }).catch(function(err) {
-    var p=JSON.parse(err);
-    res.render('welcome',{error:p.error.description});
+    var e=JSON.parse(err);
+    res.render('welcome',{error:e.error.description});
   });
 }
 
@@ -51,9 +98,9 @@ function getBusinessData(location) {
           get(url2)
             .then(function(res2) {
               // Get what you need from the response from the 2nd URL.
-            console.log(url2);
-            console.log(res2);
-            console.log("-------------------------------------------------------------------------------------");
+//            console.log(url2);
+  //          console.log(res2);
+    //        console.log("-------------------------------------------------------------------------------------");
             var isvalid=new RegExp('<html>');
             if(isvalid.test(res2)){
               business.topreview='review unavailable';  

@@ -33,9 +33,9 @@ passport.use(new Strategy({
 					var newUser = new User();
 
 					newUser.twitterId = profile.id;
-					newUser.name = profile.displayname; //or username,
+					newUser.name = profile.username; //or username,
 					newUser.goingTo=[];
-					newUser.reservationDate=Date.now();
+					newUser.reservationDate=new Date().getDate();
 					
 					newUser.save(function (err) {
 						if (err) {

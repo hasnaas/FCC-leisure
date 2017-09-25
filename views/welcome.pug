@@ -13,7 +13,7 @@ html(lang='en')
     body
         h1(class="text-center") Want to eat out?
         h2(class="text-center") Choose your location, see which restaurants are there and RSVP ahead of time !
-        form(id="search" method='post' action='')
+        form(id="search" method='post' action='/')
             div.form-group
                 label(for='location') Where are you:
                 input#location.form-control(type='text' placeholder='Where are you' name='location' required='true' )
@@ -30,7 +30,12 @@ html(lang='en')
                             h5(class="text-left") 
                                 a(href=r.url) #{r.name}
                                 span
-                                    button(class="going" href="#" onclick="") Going
+                                    form(id="go" method=user==null?"get":"post" action=user==null?"/auth/twitter":"/updatecount")
+                                        div.form-group
+                                            input(id="bi" name="bi" type="hidden" value=r.id)
+                                            input(id="lastsearch" name="lastsearch" type="hidden" value='')
+                                        button.btn(type="submit") #{r.nbgoing} Going
+                                        
                             br
                             p #{r.topreview}
                             

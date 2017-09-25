@@ -37,7 +37,8 @@ html(lang='en')
                                         button.btn(type="submit") #{r.nbgoing} Going
                                         
                             br
-                            p #{r.topreview}
+                            p "#{r.topreview}"
                             
-        
+        script(type='text/javascript').
+            var local_liste=!{JSON.stringify(liste)}
         script(src="/js/main.js") 

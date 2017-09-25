@@ -14,18 +14,36 @@ exports.set_count=function(req,res){
   var user=req.user.twitterId;
   User.findOne({twitterId:user}).exec(function(err,response){
     if(err) throw err;
-    if(response.reservationDate<new Date().getDate()){
+    if(response.reservationDate<new Date().getDate()){ //a new day, reset the rsvp array
       response.reservationDate=new Date().getDate();
+      
+       p.forEach(function(pp){
+            if(response.goingTo.indexOf(pp.id)>-1)
+            pp.nbgoing--;
+      }); 
+      
       response.goingTo=[business_id];
+      
       }
-    else{
+    else{ //the same day, handle subsequent clicks properly 
+      var index=response.goingTo.indexOf(business_id); 
+      if(index>-1) {//an rsvp has already been made the same day
+      response.goingTo.splice(index,1); //the user is no longer going to that restaurant
+       p.forEach(function(pp){
+            if(pp.id==business_id)
+            pp.nbgoing--;
+      });
+      }
+      else{ //make a new rsvp
       response.goingTo.push(business_id);
+       p.forEach(function(pp){
+            if(pp.id==business_id)
+            pp.nbgoing++;
+      });
+      }
       }
   
-    p.forEach(function(pp){
-            if(response.goingTo.indexOf(pp.id)>-1)
-            pp.nbgoing++;
-    });
+   
     response.save(function(err){
       if(err) throw err;
     })

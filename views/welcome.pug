@@ -1,0 +1,38 @@
+doctype html
+html(lang='en')
+    head
+        title= title
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        link(rel='stylesheet', href='/css/style.css')
+        
+    body
+        h1(class="text-center") Want to eat out?
+        h2(class="text-center") Choose your location, see which restaurants are there and RSVP ahead of time !
+        form(id="search" method='post' action='')
+            div.form-group
+                label(for='location') Where are you:
+                input#location.form-control(type='text' placeholder='Where are you' name='location' required='true' )
+            button.btn.btn-primary.btn-lg(type='submit') Search!
+        if error
+            p #{error}
+        if liste
+            table
+                each r in liste
+                    tr
+                        td
+                            img(src=r.image_url width="50" height="50" class="business_icon img-circle")
+                        td
+                            h5(class="text-left") 
+                                a(href=r.url) #{r.name}
+                                span
+                                    button(class="going" href="#" onclick="") Going
+                            br
+                            p #{r.topreview}
+                            
+        
+        script(src="/js/main.js") 

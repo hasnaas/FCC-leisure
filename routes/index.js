@@ -9,17 +9,14 @@ var router = express.Router();
 router.use(passport.initialize());
 router.use(passport.session());
 
-/*Authentication, to be modified */
+/*Authentication */
 router.get('/auth/twitter',passport.authenticate('twitter'));
-router.get('/auth/twitter/callback', passport.authenticate('twitter', { display:'popup',failureRedirect: '/' }),
-  function(req, res) {
-    res.render('welcome',{user:req.user});
-});
-/*router.get('/logout',function(req,res){
+router.get('/auth/twitter/callback', passport.authenticate('twitter', { display:'popup',failureRedirect: '/' }),app_controller.get_liste);
+router.get('/logout',function(req,res){
 req.logout();
-res.redirect('/polls');
+res.redirect('/');
 });
-*/
+
 
 /* GET home page. */
 router.get('/',app_controller.get_started);

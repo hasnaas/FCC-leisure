@@ -1,0 +1,92 @@
+body {
+  background-image: url("https://static.pexels.com/photos/262047/pexels-photo-262047.jpeg");
+  color: #0E0500;
+  font-family: Verdana; }
+
+.row {
+  background-color: #FCF2FB;
+  margin-bottom: 25px; }
+  .row a {
+    color: #0E0500; }
+  .row img {
+    margin-left: 15px; }
+  .row span {
+    margin-right: 15px; }
+
+.jumbotron {
+  max-width: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 20px;
+  background-color: #FCF2FB; }
+  .jumbotron form {
+    margin: 20px;
+    text-align: center; }
+    .jumbotron form input {
+      margin: auto;
+      max-width: 40%; }
+    .jumbotron form button {
+      background-color: #0E0500;
+      color: #FFFFFF; }
+    .jumbotron form button:hover {
+      color: #FFFFFF; }
+
+.result {
+  background-color: #0E0500;
+  max-width: 90%; }
+  .result table {
+    background-color: #0E0500; }
+    .result table tr {
+      margin: 5px;
+      border: 5px solid #0E0500; }
+      .result table tr td {
+        background-color: #FCF2FB; }
+        .result table tr td button {
+          background-color: #0E0500;
+          color: #FFFFFF; }
+        .result table tr td button:hover {
+          color: #FFFFFF; }
+        .result table tr td img {
+          margin-top: 10px; }
+        .result table tr td a {
+          color: #0E0500; }
+      .result table tr .description {
+        padding-right: 5px; }
+    .result table thead tr, .result table thead td {
+      background-color: #0E0500; }
+
+/* styling the pagination links */
+.page-navigation a {
+  margin: 0 2px;
+  display: inline-block;
+  padding: 3px 5px;
+  color: #0E0500;
+  background-color: #FCF2FB;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold; }
+
+.page-navigation {
+  text-align: center; }
+
+.page-navigation a[data-selected] {
+  background-color: #F9EDC7; }
+
+/*media queries */
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+/*==========  Mobile First Method  ==========*/
+/* Custom, iPhone Retina */
+/* Extra Small Devices, Phones */
+/* Small Devices, Tablets */
+/* Medium Devices, Desktops */
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+  .jumbotron {
+    max-width: 80%; }
+
+  .result {
+    max-width: 70%; } }
+
+/*# sourceMappingURL=style.css.map */

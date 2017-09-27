@@ -6,6 +6,7 @@
   "repository": "https://github.com/hasnaas/FCC-leisure.git",
   "author": "Hasna",
   "dependencies": {
+    "agenda": "^1.0.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",

@@ -3,29 +3,19 @@ var request=require('request');
 var Promise=require("promise");
 
 
-var p=[];
+var p=[]; //liste of fetched businesses
 //getting started, serving the home page with the search form
 exports.get_started=function(req,res){
     res.render('welcome',{user:req.user});
 }
 
 exports.set_count=function(req,res){
+
   var business_id=req.body.bi;
-  var user=req.user.twitterId;
-  User.findOne({twitterId:user}).exec(function(err,response){
+  
+  User.findOne({twitterId:req.user.twitterId}).exec(function(err,response){
     if(err) throw err;
-    if(response.reservationDate<new Date().getDate()){ //a new day, reset the rsvp array
-      response.reservationDate=new Date().getDate();
-      
-       p.forEach(function(pp){
-            if(response.goingTo.indexOf(pp.id)>-1)
-            pp.nbgoing--;
-      }); 
-      
-      response.goingTo=[business_id];
-      
-      }
-    else{ //the same day, handle subsequent clicks properly 
+   
       var index=response.goingTo.indexOf(business_id); 
       if(index>-1) {//an rsvp has already been made the same day
       response.goingTo.splice(index,1); //the user is no longer going to that restaurant
@@ -41,7 +31,7 @@ exports.set_count=function(req,res){
             pp.nbgoing++;
       });
       }
-      }
+      
   
    
     response.save(function(err){
@@ -52,26 +42,21 @@ exports.set_count=function(req,res){
   
 }
 exports.get_liste=function(req,res){
-    
-    //Get your user data, and print the data in JSON:
+  if(new RegExp('callback').test(req.url)) // user authentication after a search is done, send back the list of businesses
+    return res.render('welcome',{liste:p,user:req.user}); //return is used in order not to reply twice
+    //Get business data
 getBusinessData(req.body.location)
   .then(function(data) {
     //console.log("final data "+JSON.stringify(data));
     p=data.data;
-    var count=0;
+    var count=0; //add an 'nbgoing' field that indicates how many users are going each restaurant
     User.find({}).exec(function(err,users){
       if(err) throw err;
           p.forEach(function(pp){
             count=0;
             for(var i=0;i<users.length;i++){
-            if(new Date().getDate()>users[i].reservationDate){
-              users[i].goingTo=[];
-            }
-            else{
               if(users[i].goingTo.indexOf(pp.id)>-1){
                count++;
-              }
-      
               }
             }
             pp.nbgoing=count;
@@ -115,10 +100,6 @@ function getBusinessData(location) {
           var url2 = 'https://api.yelp.com/v3/businesses/'+b.id+'/reviews';
           get(url2)
             .then(function(res2) {
-              // Get what you need from the response from the 2nd URL.
-//            console.log(url2);
-  //          console.log(res2);
-    //        console.log("-------------------------------------------------------------------------------------");
             var isvalid=new RegExp('<html>');
             if(isvalid.test(res2)){
               business.topreview='review unavailable';  

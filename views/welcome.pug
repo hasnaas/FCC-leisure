@@ -6,6 +6,7 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        link(rel='stylesheet' , href='https://fonts.googleapis.com/css?family=Playball')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         
@@ -14,8 +15,8 @@ html(lang='en')
     body
         
         div(class="row")
-            div(class="col-xs-6 text-left")
-                h5 
+            div(class="col-xs-6 text-left brand")
+                h4 
                     img(src="/img/icons8-Restaurant.png" width="25px" height="25px") 
                     |  GoRestaurants
             div(class="col-xs-6 text-right")
@@ -53,7 +54,13 @@ html(lang='en')
                                         a(href=r.url) #{r.name}
                                     p "#{r.topreview}"
                         
-                                
+        div(class="row footer")
+            h5(class="text-center") Made By 
+                a(href="http://github.com/hasnaas") Hasna
+            h5(class="text-center") Powered by 
+                a(href="https://www.yelp.com/developers/documentation/v3") Yelp Fusion
+                
+                
                             
      
         script(src='/js/paginate.min.js')

@@ -78,7 +78,7 @@ function getBusinessData(location) {
     
   return new Promise(function(fulfill, reject) {
     // Make the first request to get the businesses id and infos:
-    var url1 = "https://api.yelp.com/v3/businesses/search?term=restaurant&location="+location;
+    var url1 = "https://api.yelp.com/v3/businesses/search?term=restaurants&location="+location;
     get(url1)
       .then(function(res) {
         var tojson = JSON.parse(res);

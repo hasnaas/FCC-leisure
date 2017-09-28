@@ -6,9 +6,15 @@ body{
     color:$f_color;
     font-family:Verdana;
 }
+
 .row{
     background-color:$b_color;
     margin-bottom:25px;
+    .brand h4{
+        font-weight:bold;
+        font-family:Playball;
+    }
+    
     a{
         color:$f_color;
     }
@@ -25,6 +31,10 @@ body{
     padding-bottom:10px;
     border-radius:20px;
     background-color:$b_color;
+    p{
+        margin:20px;
+        font-size:1em;
+    }
     form{
         margin:20px;
         text-align:center;
@@ -44,6 +54,7 @@ body{
 .result{
     background-color:$f_color;
     max-width:90%;
+    margin-bottom:10px;
     table{
         background-color:$f_color;
        
@@ -66,6 +77,7 @@ body{
             }
             a{
                 color:$f_color;
+                font-weight:bold;
             }
         }
         .description{
@@ -79,7 +91,9 @@ body{
     }
 }
 }
-
+.footer{
+    font-family:Playball;
+}
 /* styling the pagination links */
 .page-navigation a {
   margin: 0 2px;

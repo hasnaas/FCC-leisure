@@ -6,6 +6,9 @@ body {
 .row {
   background-color: #FCF2FB;
   margin-bottom: 25px; }
+  .row .brand h4 {
+    font-weight: bold;
+    font-family: Playball; }
   .row a {
     color: #0E0500; }
   .row img {
@@ -19,6 +22,9 @@ body {
   padding-bottom: 10px;
   border-radius: 20px;
   background-color: #FCF2FB; }
+  .jumbotron p {
+    margin: 20px;
+    font-size: 1em; }
   .jumbotron form {
     margin: 20px;
     text-align: center; }
@@ -33,7 +39,8 @@ body {
 
 .result {
   background-color: #0E0500;
-  max-width: 90%; }
+  max-width: 90%;
+  margin-bottom: 10px; }
   .result table {
     background-color: #0E0500; }
     .result table tr {
@@ -49,11 +56,15 @@ body {
         .result table tr td img {
           margin-top: 10px; }
         .result table tr td a {
-          color: #0E0500; }
+          color: #0E0500;
+          font-weight: bold; }
       .result table tr .description {
         padding-right: 5px; }
     .result table thead tr, .result table thead td {
       background-color: #0E0500; }
+
+.footer {
+  font-family: Playball; }
 
 /* styling the pagination links */
 .page-navigation a {

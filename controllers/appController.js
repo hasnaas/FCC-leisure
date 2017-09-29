@@ -44,10 +44,12 @@ exports.set_count=function(req,res){
 exports.get_liste=function(req,res){
   if(new RegExp('callback').test(req.url)) // user authentication after a search is done, send back the list of businesses
     return res.render('welcome',{liste:p,user:req.user}); //return is used in order not to reply twice
+    console.log("triggered");
     //Get business data
 getBusinessData(req.body.location)
   .then(function(data) {
-    //console.log("final data "+JSON.stringify(data));
+    console.log("here");
+    console.log("final data "+JSON.stringify(data));
     p=data.data;
     var count=0; //add an 'nbgoing' field that indicates how many users are going each restaurant
     User.find({}).exec(function(err,users){
@@ -63,7 +65,8 @@ getBusinessData(req.body.location)
           });
       
     res.render('welcome',{liste:p,user:req.user});  
-    });
+    }); 
+    
   }).catch(function(err) {
     var e=JSON.parse(err);
     res.render('welcome',{error:e.error.description});
@@ -107,14 +110,22 @@ function getBusinessData(location) {
               
             else{
             var tojson2=JSON.parse(res2);
-            if(tojson2.error)
+            counter++;
+            if(tojson2.error){
                 reject(res2);
+            }
+            
+              if(tojson2.reviews[0]!=undefined)
               business.topreview=tojson2.reviews[0].text; 
+              else
+               business.topreview='review unavailable';  
               }
             liste.push(business);
             
-            counter++;
+            
             if (counter === tojson.businesses.length) {
+              console.log("terminated");
+            console.log(liste.length);
             fulfill({data:liste}); //Return/Fulfill an object containing an array of the user data.
             }
             }).catch(function(err) {
